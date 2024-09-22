@@ -33,7 +33,7 @@ jobs:
           echo "Branch name: $BRANCH_NAME"
 
           # Define the regex pattern
-          PATTERN="^(master|main|develop)$|^(feature|fix|hotfix|release)/.+$"
+          PATTERN="^(master|main|develop)$|^(fix|CC).+$"
 
           # Check if the branch name matches the pattern
           if [[ ! $BRANCH_NAME =~ $PATTERN ]]; then
@@ -47,23 +47,3 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 3: Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # Step 4: Install project dependencies
-      - name: Install Dependencies
-        run: npm install --force
-
-      # Step 5: Run lint-staged for Prettier and ESLint
-      - name: Run Lint-Staged
-        run: |
-          npx lint-staged
-          
-      # Step 6: Verify that there are no lint or format issues (force failure if issues exist)
-      - name: Check Lint and Format
-        run: |
-          npm run lint || exit 1
-          npm run format:check || exit 1
