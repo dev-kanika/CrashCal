@@ -1,46 +1,53 @@
-name: Branch check
+name: Lint and Format Check
 
 on:
   push:
     branches:
       - main
       - develop
-      
+      - master
   pull_request:
     branches:
       - main
       - develop
+      - master
 
 jobs:
-  build:
+  lint_and_format:
     runs-on: ubuntu-latest
+
     steps:
-        
+      # Step 1: Validate branch name
       - name: Validate Branch Name
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           echo "Branch name: $BRANCH_NAME"
           
           # Define the regex pattern
-          PATTERN="^(main|develop)$|^(fix|CC).+$"
+          PATTERN="^(master|main|develop)$|^(feature|fix|hotfix|release)/.+$"
 
           # Check if the branch name matches the pattern
           if [[ ! $BRANCH_NAME =~ $PATTERN ]]; then
             echo "Branch name '$BRANCH_NAME' does not match the required pattern."
             exit 1
           fi
+          
           echo "Branch name '$BRANCH_NAME' is valid."
+          
+      # Step 2: Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Step 3: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-  restrict_main:
-    if: github.event.pull_request.base.ref == 'main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restrict merge to main
-        run: |
-          if [ "$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" != "@AeshaSavani" ]; then
-            echo "Only @AeshaSavani can merge to main"
-            exit 1
-          fi
+      # Step 4: Install project dependencies
+      - name: Install Dependencies
+        run: npm install --force
+
+      # Step 5: Run Prettier to fix formatting issues automatically
+      - name: Run Prettier & ESLint
+        run: npx lint-staged
