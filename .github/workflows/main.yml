@@ -1,0 +1,49 @@
+name: Lint and Format Check
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - master    
+  pull_request:
+    branches:
+      - main
+      - develop
+      - master
+
+jobs:
+  lint_and_format:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Validate branch name
+      - name: Validate Branch Name
+        run: |
+          # Extract the branch name based on whether it's a push or a pull request
+          if [[ "$GITHUB_REF" == refs/heads/* ]]; then
+            BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          elif [[ "$GITHUB_REF" == refs/pull/* ]]; then
+            BRANCH_NAME="${GITHUB_HEAD_REF}"
+          else
+            echo "Cannot determine the branch name from GITHUB_REF: $GITHUB_REF"
+            exit 1
+          fi
+
+          echo "Branch name: $BRANCH_NAME"
+
+          # Define the regex pattern
+          PATTERN="^(master|main|develop)$|^(fix|CC).+$"
+
+          # Check if the branch name matches the pattern
+          if [[ ! $BRANCH_NAME =~ $PATTERN ]]; then
+            echo "Branch name '$BRANCH_NAME' does not match the required pattern."
+            exit 1
+          fi
+
+          echo "Branch name '$BRANCH_NAME' is valid."
+
+      # Step 2: Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
