@@ -20,9 +20,18 @@ jobs:
       # Step 1: Validate branch name
       - name: Validate Branch Name
         run: |
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          # Extract the branch name based on whether it's a push or a pull request
+          if [[ "$GITHUB_REF" == refs/heads/* ]]; then
+            BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          elif [[ "$GITHUB_REF" == refs/pull/* ]]; then
+            BRANCH_NAME="${GITHUB_HEAD_REF}"
+          else
+            echo "Cannot determine the branch name from GITHUB_REF: $GITHUB_REF"
+            exit 1
+          fi
+
           echo "Branch name: $BRANCH_NAME"
-          
+
           # Define the regex pattern
           PATTERN="^(master|main|develop)$|^(feature|fix|hotfix|release)/.+$"
 
@@ -31,9 +40,9 @@ jobs:
             echo "Branch name '$BRANCH_NAME' does not match the required pattern."
             exit 1
           fi
-          
+
           echo "Branch name '$BRANCH_NAME' is valid."
-          
+
       # Step 2: Checkout the repository code
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -48,6 +57,13 @@ jobs:
       - name: Install Dependencies
         run: npm install --force
 
-      # Step 5: Run Prettier to fix formatting issues automatically
-      - name: Run Prettier & ESLint
-        run: npx lint-staged
+      # Step 5: Run lint-staged for Prettier and ESLint
+      - name: Run Lint-Staged
+        run: |
+          npx lint-staged
+          
+      # Step 6: Verify that there are no lint or format issues (force failure if issues exist)
+      - name: Check Lint and Format
+        run: |
+          npm run lint || exit 1
+          npm run format:check || exit 1
