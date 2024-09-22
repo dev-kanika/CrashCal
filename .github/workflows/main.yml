@@ -57,9 +57,18 @@ jobs:
         id: pr_reviews
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
-          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews" \
-            | jq '[.[] | select(.state == "APPROVED")]' > reviews.json
+          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews")
+          
+          # Check if the response is empty or an error message
+          if [[ $(echo "$RESPONSE" | jq 'type') != '"array"' ]]; then
+            echo "Error fetching reviews or no reviews found."
+            echo "$RESPONSE"  # Output the error message for debugging
+            exit 1
+          fi
+
+          # Filter approved reviews
+          echo "$RESPONSE" | jq '[.[] | select(.state == "APPROVED")]' > reviews.json
           echo "Approved reviews: $(cat reviews.json)"
 
       - name: Check Author and Approvals
@@ -84,4 +93,3 @@ jobs:
               exit 1
             fi
           fi
-
