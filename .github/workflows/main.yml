@@ -1,6 +1,11 @@
 name: Branch check
 
 on:
+  push:
+    branches:
+      - main
+      - develop
+      
   pull_request:
     branches:
       - main
@@ -26,6 +31,7 @@ jobs:
             echo "Branch name '$BRANCH_NAME' does not match the required pattern."
             exit 1
           fi
+          echo "Branch name '$BRANCH_NAME' is valid."
 
   restrict_main:
     if: github.event.pull_request.base.ref == 'main'
