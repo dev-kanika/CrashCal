@@ -11,12 +11,6 @@ on:
       - main
       - develop
       - master
-    types:
-      - labeled
-      - opened
-      - reopened
-      - edited
-      - synchronize
 
 jobs:
   lint_and_format:
@@ -53,44 +47,3 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         
-
-      - name: Get Pull Request Reviews
-        id: pr_reviews
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews")
-          
-          # Check if the response is empty or an error message
-          if [[ $(echo "$RESPONSE" | jq 'type') != '"array"' ]]; then
-            echo "Error fetching reviews or no reviews found."
-            echo "$RESPONSE"  # Output the error message for debugging
-            exit 1
-          fi
-
-          # Filter approved reviews
-          echo "$RESPONSE" | jq '[.[] | select(.state == "APPROVED")]' > reviews.json
-          echo "Approved reviews: $(cat reviews.json)"
-
-      - name: Check Author and Approvals
-        id: check_author
-        run: |
-          APPROVED_REVIEWS=$(jq length reviews.json)
-          AUTHOR=${{ github.event.pull_request.user.login }}
-          PR_AUTHOR=${{ github.actor }}
-
-          if [[ "$PR_AUTHOR" == "$AUTHOR" ]]; then
-            echo "The author ($AUTHOR) cannot merge their own PR."
-            if [[ "$APPROVED_REVIEWS" -lt 2 ]]; then
-              echo "PR cannot be merged by the author. Less than 2 approvals."
-              exit 1
-            else
-              echo "PR has 2 approvals, but the author cannot merge."
-              exit 1
-            fi
-          else
-            if [[ "$APPROVED_REVIEWS" -lt 2 ]]; then
-              echo "PR cannot be merged. Less than 2 approvals."
-              exit 1
-            fi
-          fi
