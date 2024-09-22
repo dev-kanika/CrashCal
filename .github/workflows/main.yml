@@ -19,7 +19,7 @@ jobs:
           echo "Branch name: $BRANCH_NAME"
           
           # Define the regex pattern
-          PATTERN="^(main|develop)$|^(fix|CC)/.+$"
+          PATTERN="^(main|develop)$|^(fix|CC).+$"
 
           # Check if the branch name matches the pattern
           if [[ ! $BRANCH_NAME =~ $PATTERN ]]; then
