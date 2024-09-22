@@ -1,0 +1,39 @@
+name: Branch check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Validate Branch Name
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "Branch name: $BRANCH_NAME"
+          
+          # Define the regex pattern
+          PATTERN="^(main|develop)$|^(fix|CC)/.+$"
+
+          # Check if the branch name matches the pattern
+          if [[ ! $BRANCH_NAME =~ $PATTERN ]]; then
+            echo "Branch name '$BRANCH_NAME' does not match the required pattern."
+            exit 1
+          fi
+
+  restrict_main:
+    if: github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restrict merge to main
+        run: |
+          if [ "$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" != "@AeshaSavani" ]; then
+            echo "Only @AeshaSavani can merge to main"
+            exit 1
+          fi
