@@ -15,8 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
         
       - name: Validate Branch Name
         run: |
@@ -32,6 +30,9 @@ jobs:
             exit 1
           fi
           echo "Branch name '$BRANCH_NAME' is valid."
+
+      - name: Checkout code
+        uses: actions/checkout@v2
 
   restrict_main:
     if: github.event.pull_request.base.ref == 'main'
