@@ -1,0 +1,146 @@
+car,brand,model,damage,location,part,severity,price
+yes,toyota,toyota camry,yes,front,front bumper,low,46
+yes,toyota,toyota camry,yes,front,front bumper,moderate,75
+yes,toyota,toyota camry,yes,front,front bumper,high,250
+yes,toyota,toyota camry,yes,side,left and right fenders,low,48.5
+yes,toyota,toyota camry,yes,side,left and right fenders,moderate,70
+yes,toyota,toyota camry,yes,side,left and right fenders,high,200
+yes,toyota,toyota camry,yes,front,hood,low,55
+yes,toyota,toyota camry,yes,front,hood,moderate,250
+yes,toyota,toyota camry,yes,front,hood,high,400
+yes,toyota,toyota camry,yes,front,headlights,low,52.5
+yes,toyota,toyota camry,yes,front,headlights,moderate,118.5
+yes,toyota,toyota camry,yes,front,headlights,high,685
+yes,toyota,toyota camry,yes,front,windshield,low,100
+yes,toyota,toyota camry,yes,front,windshield,moderate,425
+yes,toyota,toyota camry,yes,front,windshield,high,600
+yes,toyota,toyota camry,yes,side,side doors,low,180
+yes,toyota,toyota camry,yes,side,side doors,moderate,410
+yes,toyota,toyota camry,yes,side,side doors,high,660
+yes,toyota,toyota camry,yes,side,side mirrors,low,20
+yes,toyota,toyota camry,yes,side,side mirrors,moderate,45
+yes,toyota,toyota camry,yes,side,side mirrors,high,95
+yes,toyota,toyota camry,yes,front,roof,low,210
+yes,toyota,toyota camry,yes,front,roof,moderate,350
+yes,toyota,toyota camry,yes,front,roof,high,550
+yes,toyota,toyota camry,yes,back,boot,low,95
+yes,toyota,toyota camry,yes,back,boot,moderate,450
+yes,toyota,toyota camry,yes,back,boot,high,680
+yes,toyota,toyota camry,yes,back,rear bumper,low,55
+yes,toyota,toyota camry,yes,back,rear bumper,moderate,220
+yes,toyota,toyota camry,yes,back,rear bumper,high,310
+yes,toyota,toyota camry,yes,side,flattire,low,70
+yes,toyota,toyota camry,yes,side,flattire,moderate,175
+yes,toyota,toyota camry,yes,side,flattire,high,300
+yes,toyota,toyota camry,yes,back,rear lights,low,40
+yes,toyota,toyota camry,yes,back,rear lights,moderate,120
+yes,toyota,toyota camry,no,0,0,0,0
+yes,dodge,dodge challenger,yes,front,front bumper,low,456
+yes,dodge,dodge challenger,yes,front,front bumper,moderate,1140
+yes,dodge,dodge challenger,yes,front,front bumper,high,2280
+yes,dodge,dodge challenger,yes,side,left and right fenders,low,508
+yes,dodge,dodge challenger,yes,side,left and right fenders,moderate,1272
+yes,dodge,dodge challenger,yes,side,left and right fenders,high,2544
+yes,dodge,dodge challenger,yes,front,hood,low,583
+yes,dodge,dodge challenger,yes,front,hood,moderate,1459
+yes,dodge,dodge challenger,yes,front,hood,high,2919
+yes,dodge,dodge challenger,yes,front,headlights,low,346
+yes,dodge,dodge challenger,yes,front,headlights,moderate,865
+yes,dodge,dodge challenger,yes,front,headlights,high,1730
+yes,dodge,dodge challenger,yes,front,windshield,low,135
+yes,dodge,dodge challenger,yes,front,windshield,moderate,338
+yes,dodge,dodge challenger,yes,front,windshield,high,676
+yes,dodge,dodge challenger,yes,side,side doors,low,290
+yes,dodge,dodge challenger,yes,side,side doors,moderate,725
+yes,dodge,dodge challenger,yes,side,side doors,high,1450
+yes,dodge,dodge challenger,yes,side,side mirrors,low,26
+yes,dodge,dodge challenger,yes,side,side mirrors,moderate,67
+yes,dodge,dodge challenger,yes,side,side mirrors,high,134
+yes,dodge,dodge challenger,yes,front,roof,low,240
+yes,dodge,dodge challenger,yes,front,roof,moderate,602
+yes,dodge,dodge challenger,yes,front,roof,high,1204
+yes,dodge,dodge challenger,yes,back,boot,low,190
+yes,dodge,dodge challenger,yes,back,boot,moderate,475
+yes,dodge,dodge challenger,yes,back,boot,high,950
+yes,dodge,dodge challenger,yes,back,rear bumper,low,240
+yes,dodge,dodge challenger,yes,back,rear bumper,moderate,602
+yes,dodge,dodge challenger,yes,back,rear bumper,high,1204
+yes,dodge,dodge challenger,yes,side,flattire,low,149
+yes,dodge,dodge challenger,yes,side,flattire,moderate,372
+yes,dodge,dodge challenger,yes,side,flattire,high,745
+yes,dodge,dodge challenger,yes,back,rear lights,low,192
+yes,dodge,dodge challenger,yes,back,rear lights,moderate,481
+no,dodge,dodge challenger,no,0,0,0,0
+yes,mazda,mazda 3,yes,front,front bumper,low,37.5
+yes,mazda,mazda 3,yes,front,front bumper,moderate,58
+yes,mazda,mazda 3,yes,front,front bumper,high,200
+yes,mazda,mazda 3,yes,side,left and right fenders,low,45.5
+yes,mazda,mazda 3,yes,side,left and right fenders,moderate,65
+yes,mazda,mazda 3,yes,side,left and right fenders,high,190
+yes,mazda,mazda 3,yes,front,hood,low,75
+yes,mazda,mazda 3,yes,front,hood,moderate,345.5
+yes,mazda,mazda 3,yes,front,hood,high,480
+yes,mazda,mazda 3,yes,front,headlights,low,50
+yes,mazda,mazda 3,yes,front,headlights,moderate,120.5
+yes,mazda,mazda 3,yes,front,headlights,high,635.5
+yes,mazda,mazda 3,yes,front,windshield,low,95.5
+yes,mazda,mazda 3,yes,front,windshield,moderate,350.5
+yes,mazda,mazda 3,yes,front,windshield,high,500
+yes,mazda,mazda 3,yes,side,side doors,low,125.5
+yes,mazda,mazda 3,yes,side,side doors,moderate,450
+yes,mazda,mazda 3,yes,side,side doors,high,700
+yes,mazda,mazda 3,yes,side,side mirrors,low,25
+yes,mazda,mazda 3,yes,side,side mirrors,moderate,48.5
+yes,mazda,mazda 3,yes,side,side mirrors,high,80
+yes,mazda,mazda 3,yes,front,roof,low,195.5
+yes,mazda,mazda 3,yes,front,roof,moderate,280.5
+yes,mazda,mazda 3,yes,front,roof,high,500
+yes,mazda,mazda 3,yes,back,boot,low,60
+yes,mazda,mazda 3,yes,back,boot,moderate,480
+yes,mazda,mazda 3,yes,back,boot,high,750.5
+yes,mazda,mazda 3,yes,back,rear bumper,low,45
+yes,mazda,mazda 3,yes,back,rear bumper,moderate,275
+yes,mazda,mazda 3,yes,back,rear bumper,high,400
+yes,mazda,mazda 3,yes,side,flattire,low,55
+yes,mazda,mazda 3,yes,side,flattire,moderate,220.5
+yes,mazda,mazda 3,yes,side,flattire,high,350
+yes,mazda,mazda 3,yes,back,rear lights,low,35
+yes,mazda,mazda 3,yes,back,rear lights,moderate,150
+yes,mazda,mazda 3,yes,back,rear lights,high,300
+yes,mazda,mazda 3,no,0,0,0,0
+yes,ford,ford mustang,yes,front,front bumper,low,50
+yes,ford,ford mustang,yes,front,front bumper,moderate,80
+yes,ford,ford mustang,yes,front,front bumper,high,300
+yes,ford,ford mustang,yes,side,left and right fenders,low,50
+yes,ford,ford mustang,yes,side,left and right fenders,moderate,73.5
+yes,ford,ford mustang,yes,side,left and right fenders,high,210.5
+yes,ford,ford mustang,yes,front,hood,low,58.5
+yes,ford,ford mustang,yes,front,hood,moderate,280
+yes,ford,ford mustang,yes,front,hood,high,395.5
+yes,ford,ford mustang,yes,front,headlights,low,50.5
+yes,ford,ford mustang,yes,front,headlights,moderate,128.5
+yes,ford,ford mustang,yes,front,headlights,high,650
+yes,ford,ford mustang,yes,front,windshield,low,95
+yes,ford,ford mustang,yes,front,windshield,moderate,435
+yes,ford,ford mustang,yes,front,windshield,high,500
+yes,ford,ford mustang,yes,side,side doors,low,160
+yes,ford,ford mustang,yes,side,side doors,moderate,400
+yes,ford,ford mustang,yes,side,side doors,high,600
+yes,ford,ford mustang,yes,side,side mirrors,low,28.5
+yes,ford,ford mustang,yes,side,side mirrors,moderate,48.5
+yes,ford,ford mustang,yes,side,side mirrors,high,98.5
+yes,ford,ford mustang,yes,front,roof,low,185
+yes,ford,ford mustang,yes,front,roof,moderate,445
+yes,ford,ford mustang,yes,front,roof,high,650
+yes,ford,ford mustang,yes,back,boot,low,85
+yes,ford,ford mustang,yes,back,boot,moderate,375
+yes,ford,ford mustang,yes,back,boot,high,700
+yes,ford,ford mustang,yes,back,rear bumper,low,37.5
+yes,ford,ford mustang,yes,back,rear bumper,moderate,210
+yes,ford,ford mustang,yes,back,rear bumper,high,340.5
+yes,ford,ford mustang,yes,side,flattire,low,75.5
+yes,ford,ford mustang,yes,side,flattire,moderate,180
+yes,ford,ford mustang,yes,side,flattire,high,340
+yes,ford,ford mustang,yes,back,rear lights,low,45.5
+yes,ford,ford mustang,yes,back,rear lights,moderate,120.5
+no,ford,ford mustang,no,0,0,0,0
