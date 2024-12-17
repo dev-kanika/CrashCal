@@ -1,0 +1,105 @@
+# CrashCal: Setup and Requirements
+
+## System Requirements
+To run the code in `crashcal.ipynb`, the following Python packages must be installed on your system:
+
+absl-py==2.1.0
+aiobotocore==2.4.2
+aiohttp==3.8.1
+aioitertools==0.10.0
+aiosignal==1.2.0
+altair==5.0.1
+anyascii==0.3.2
+anyio==3.6.2
+appdirs==1.4.4
+attrs==24.2.0
+beautifulsoup4==4.12.2
+black==23.7.0
+boto3==1.28.54
+botocore==1.31.54
+catboost==1.2.7
+category-encoders==2.6.4
+certifi==2023.7.22
+cffi==1.15.1
+charset-normalizer==2.1.1
+click==8.1.3
+cloudpickle==2.2.1
+cycler==0.11.0
+dask==2023.9.0
+Flask==2.3.3
+h5py==3.11.0
+holoviews==1.15.4
+hvplot==0.8.3
+imbalanced-learn==0.10.1
+ipykernel==6.24.0
+ipython==8.16.1
+jedi==0.19.0
+joblib==1.3.2
+Jinja2==3.1.2
+keras==3.5.0
+lightgbm==4.5.0
+lime==0.2.0.1
+Markdown==3.4.4
+matplotlib==3.8.0
+ml-dtypes==0.4.1
+numpy==1.26.4
+opencv-python==4.10.0.84
+pandas==2.1.4
+Pillow==9.5.0
+plotly==5.16.0
+protobuf==3.20.3
+PyQt5==5.15.10
+pyqt5-sip==12.12.0
+PyQtWebEngine==5.15.6
+python-dateutil==2.8.2
+requests==2.31.0
+scikit-image==0.22.0
+scikit-learn==1.3.1
+scipy==1.11.4
+seaborn==0.12.2
+shap==0.46.0
+six==1.16.0
+streamlit==1.39.0
+tensorflow==2.17.0
+torch==2.4.1
+torchaudio==2.4.1
+torchvision==0.19.1
+tqdm==4.66.1
+ujson==5.8.0
+Werkzeug==2.3.7
+xgboost==2.1.1
+
+## Workflow
+1. Generate Models:
+   - Run `crashcal.ipynb` to generate the following models:
+     - `car_classification.h5`
+     - `damage_detection_model.h5`
+     - `location_detection_model.h5`
+     - `severity_model.h5`
+     - `brand_detection.h5`
+
+2. Parts Prediction:
+   - Execute `part_prediction_code.ipynb` to create the `part_detection.pkl` file.
+   - **Note**: The code for part detection was too large so compress into a PDF file. Please access the full code directly in the provided `.ipynb` file.
+
+3. Price Prediction:
+   - Execute `price_prediction.ipynb` to create the `price_prediction.pkl` file.
+
+4. Pipeline Integration:
+   - Upload all generated models and `.pkl` files into `pipeline.ipynb`.
+   - Run the pipeline code to integrate the entire workflow.
+
+5. Frontend Application:
+   - To run the frontend application using `app.py`, ensure the following additional packages are installed:
+     - `streamlit`
+     - `numpy`
+     - `torch`
+     - `tensorflow`
+     - `pillow`
+     - `torchvision`
+
+## Note
+Due to size constraints, the dataset (comprising images and CSV files) is not provided in this repository. Ensure you have access to the required datasets to execute the code properly.
+
+Thank you for using CrashCal!
+
