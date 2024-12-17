@@ -122,6 +122,4 @@ Libraries Used:
 
 ## Demo
 
-<video width="600" controls>
-  <source src="CrashCal_demo.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/3726defc-7f66-4a8c-b305-d80f81805564
