@@ -122,4 +122,6 @@ Libraries Used:
 
 ## Demo
 
-[Watch the Demo Video](CrashCal_demo.mp4)
+<video width="600" controls>
+  <source src="CrashCal_demo.mp4" type="video/mp4">
+</video>
