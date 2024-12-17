@@ -122,4 +122,4 @@ Libraries Used:
 
 ## Demo
 
-<img src="/CrashCal_demo.mp4" width ="900" height ="507"/>
+[Watch the Demo Video](CrashCal_demo.mp4)
