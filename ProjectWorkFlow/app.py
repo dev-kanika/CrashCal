@@ -7,28 +7,41 @@ from tensorflow.keras.preprocessing import image
 from torchvision.transforms import functional as F
 from PIL import Image
 import pickle
-
-# Suppress warnings
 import warnings
-
 warnings.filterwarnings("ignore")
 
-# Function to add a background image using a link
+# Add background image and custom styling
 def add_background_image(image_url):
     st.markdown(
         f"""
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap');
+
         .stApp {{
             background-image: url("{image_url}");
             background-size: cover;
+            background-position: center;5
+            font-family: 'Roboto', sans-serif;
         }}
-        .center-title {{
+
+        .title {{
+            font-family: 'Pacifico', cursive;
             text-align: center;
             color: white;
-            font-size: 50px;
-            font-weight: bold;
+            font-size: 3em;
+            animation: fadeIn 2s;
         }}
-        .results-text {{
+
+        @keyframes fadeIn {{
+            0% {{ opacity: 0; }}
+            100% {{ opacity: 1; }}
+        }}
+
+        .subheader, .results-text {{
+            color: white;
+        }}
+
+        .spinner-text {{
             color: white;
         }}
         </style>
@@ -36,8 +49,8 @@ def add_background_image(image_url):
         unsafe_allow_html=True,
     )
 
-# Add background image using a URL
-add_background_image("https://c4.wallpaperflare.com/wallpaper/954/310/420/fast-and-furious-7-movie-scene-wallpaper-preview.jpg")  # Replace with your image URL
+# Add the background image
+add_background_image("https://images.bauerhosting.com/legacy/empire-tmdb/films/168259/images/ypyeMfKydpyuuTMdp36rMlkGDUL.jpg?ar=16%3A9&fit=crop&crop=top&auto=format&w=1440&q=80")
 
 # Load the models
 @st.cache_resource
@@ -58,8 +71,6 @@ def load_models():
 # Load the models
 tf_models, part_detection_model, price_model = load_models()
 
-brand_categories = ["Ford_Mustang", "Mazda_3", "Toyota_Camry"]
-
 # Hardcoded label map for part detection
 label_map = {
     0: "background", 1: "Damage-Windshield", 2: "Damage-boots", 3: "Damage-door",
@@ -68,6 +79,7 @@ label_map = {
     10: "Damage-right-fender", 11: "Damage-roof", 12: "Damage-side-mirror",
     13: "Damage-window-glass", 14: "flat-tire"
 }
+brand_categories = ["Ford_Mustang", "Mazda_3", "Toyota_Camry", "Dodge_Challenger"]
 
 # Helper Functions
 def preprocess_image_tensorflow(img_path, img_width, img_height):
@@ -97,20 +109,18 @@ def complete_detection_pipeline(img_path, confidence_threshold=0.5):
         brand_prediction = tf_models['brand_detection'].predict(brand_image)
         brand_class = np.argmax(brand_prediction)
         features['brand'] = brand_categories[brand_class]
-        
 
         # Damage detection
         damage_input_shape = tf_models['damage_detection'].input_shape[1:3]
         damage_image = preprocess_image_tensorflow(img_path, *damage_input_shape)
         damage_prediction = tf_models['damage_detection'].predict(damage_image)[0][0]
-        features['damage_detected'] = "Damage Detected" if car_prediction >= 0.5 else "No Car Detected"
+        features['damage_detected'] = "Damage Detected" if damage_prediction >= 0.5 else "No Damage Detected"
 
         # Location detection
         location_input_shape = tf_models['location_detection'].input_shape[1:3]
         location_image = preprocess_image_tensorflow(img_path, *location_input_shape)
         location_prediction = tf_models['location_detection'].predict(location_image)
         location_class = np.argmax(location_prediction)
-        location_confidence = location_prediction[0][location_class]
         location_labels = ['front', 'side', 'back']
         features['location'] = location_labels[location_class]
 
@@ -159,26 +169,64 @@ def complete_detection_pipeline(img_path, confidence_threshold=0.5):
     return features
 
 # Streamlit app
-st.markdown("<h1 class='center-title'>CrashCal</h1>", unsafe_allow_html=True)
-st.write("<div style='color: white; text-align: center;'>Welcome to CrashCal! Upload your car image to get a detailed report.</div>", unsafe_allow_html=True)
+if 'authenticated' not in st.session_state:
+    st.session_state['authenticated'] = False
 
-uploaded_file = st.file_uploader("Upload an image of a car", type=["jpg", "jpeg", "png"])
+def login_page():
+    st.markdown("<div class='title'>CrashCal Login</div>", unsafe_allow_html=True)
+    
+    # Styled label for Username
+    st.markdown("<span style='color: white; font-size: 1.2em;'>Username</span>", unsafe_allow_html=True)
+    username = st.text_input("", key="username")
+    
+    # Styled label for Password
+    st.markdown("<span style='color: white; font-size: 1.2em;'>Password</span>", unsafe_allow_html=True)
+    password = st.text_input("", type="password", key="password")
 
-if uploaded_file is not None:
-    with st.spinner("Processing the image..."):
-        # Save the uploaded file temporarily
-        img_path = "uploaded_image.jpg"
-        with open(img_path, "wb") as f:
-            f.write(uploaded_file.read())
+    if st.button("Login"):
+        if username == "admin" and password == "Crashcal":
+            st.session_state['authenticated'] = True
+        else:
+            st.error("Invalid username or password.")
 
-        # Run the pipeline
-        features = complete_detection_pipeline(img_path)
 
-        # Display results
-        st.image(img_path, caption="Uploaded Image", use_column_width=True)
-        st.subheader("Detection Results")
-        for key, value in features.items():
-            if key == "predicted_price":
-                st.markdown(f"<div class='results-text'><b>Estimated Price</b>: ${value:.2f}</div>", unsafe_allow_html=True)
-            else:
-                st.markdown(f"<div class='results-text'><b>{key.replace('_', ' ').capitalize()}</b>: {value}</div>", unsafe_allow_html=True)
+if not st.session_state['authenticated']:
+    login_page()
+else:
+    st.markdown("<div class='title'>CrashCal</div>", unsafe_allow_html=True)
+
+    uploaded_file = st.file_uploader("<span style='color: white;'>Upload an image of a car</span>", type=["jpg", "jpeg", "png"], label_visibility='hidden')
+
+    if uploaded_file is not None:
+        with st.spinner("Processing the image..."):
+        # Display custom spinner text with white color
+            st.markdown(
+        """
+        <style>
+        div[role="status"] {
+            color: white !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+            # Save the uploaded file temporarily
+            img_path = "uploaded_image.jpg"
+            with open(img_path, "wb") as f:
+                f.write(uploaded_file.read())
+
+            # Run the pipeline
+            features = complete_detection_pipeline(img_path)
+
+            # Display results
+            st.image(img_path, caption="<span style='color: white;'>Uploaded Image</span>", use_column_width=True, output_format='JPEG')
+            st.markdown("""
+                 <div style='background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: black;'>
+                 <h2 style='color: black;'>Detection Results</h2>
+                """, unsafe_allow_html=True)
+            for key, value in features.items():
+                if key == "predicted_price":
+                    st.markdown(f"<div style='background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: black;'>*Estimated Price*: ${value:.2f}</div>", unsafe_allow_html=True)
+                else:
+                    st.markdown(f"<div style='background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: blackcolor: black;'>{key.replace('_', ' ').capitalize()}: {value}</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
