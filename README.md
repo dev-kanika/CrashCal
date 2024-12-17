@@ -122,4 +122,4 @@ Libraries Used:
 
 ## Demo
 
-<img src="/CrashCal_demo.mp4" width ="900" height ="507"/>
+https://github.com/user-attachments/assets/3726defc-7f66-4a8c-b305-d80f81805564
